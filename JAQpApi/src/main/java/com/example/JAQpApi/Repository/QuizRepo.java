@@ -19,6 +19,8 @@ public interface QuizRepo extends JpaRepository<Quiz, Integer> {
     where u.id = :id\s
     """)
   List<Quiz> findAllQuizByUserId(Integer id);
+
+  Optional<Quiz> findByName(String name);
     
     
 }

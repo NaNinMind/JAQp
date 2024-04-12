@@ -2,6 +2,7 @@ package com.example.JAQpApi.Entity.Quiz;
 
 import java.util.List;
 
+import org.checkerframework.common.aliasing.qual.Unique;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -20,6 +21,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -29,6 +31,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Setter
+@Getter
 public class Quiz {
 
 

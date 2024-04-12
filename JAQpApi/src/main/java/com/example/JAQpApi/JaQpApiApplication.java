@@ -6,9 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.example.JAQpApi.DTO.AuthenticationRequest;
+import com.example.JAQpApi.DTO.RegistrationRequest;
 import com.example.JAQpApi.Entity.JsonUtil;
 import com.example.JAQpApi.Entity.Quiz.Question;
 import com.example.JAQpApi.Entity.Quiz.Quiz;
+import com.example.JAQpApi.Entity.User.Role;
 import com.example.JAQpApi.Entity.User.User;
 import com.example.JAQpApi.Repository.UserRepo;
 import com.example.JAQpApi.Service.AuthService;
@@ -54,20 +56,8 @@ public class JaQpApiApplication
 			Quiz quiz = new Quiz().builder().name("quiz with questions").questions(JsonUtil.convertObjectToJson(q)).build();
 			quizService.addQuiz("admin", quiz);
 
-			/*
-			var manager = RegistrationRequest.builder()
-					.username("manager2")
-					.password("manager2")
-					.role(Role.MANAGER)
-					.build();
-			service.register(manager);
-			var managerAuth = AuthenticationRequest.builder()
-					.username("manager2")
-					.password("manager2")
-					.build();
-			var managerRes = service.authenticate(managerAuth);
-			System.out.println("Manager token: " + managerRes.getJwtToken());
-			*/
+			quiz.setName("quiz with questions, but updated");
+			quizService.updateQuiz("admin", quiz, 1);
 		};
 	}
 }

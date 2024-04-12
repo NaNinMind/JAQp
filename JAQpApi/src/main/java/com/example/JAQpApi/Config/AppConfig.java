@@ -1,5 +1,6 @@
 package com.example.JAQpApi.Config;
 
+import com.example.JAQpApi.Entity.JsonUtil;
 import com.example.JAQpApi.Repository.UserRepo;
 import io.minio.MinioClient;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,13 @@ public class AppConfig {
 
     private final UserRepo userRepository;
     private final MinioProperties minioProperties;
+
+
+
+    @Bean
+    public JsonUtil jsonUtil(){
+        return new JsonUtil();
+    }
 
     @Bean
     public UserDetailsService userDetailsService()

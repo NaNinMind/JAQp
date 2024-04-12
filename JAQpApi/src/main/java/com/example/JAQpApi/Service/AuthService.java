@@ -1,7 +1,6 @@
 package com.example.JAQpApi.Service;
 
 
-
 import com.example.JAQpApi.DTO.AuthenticationResponse;
 import com.example.JAQpApi.DTO.AuthenticationRequest;
 import com.example.JAQpApi.Entity.Token.Token;
@@ -15,7 +14,6 @@ import com.example.JAQpApi.DTO.RegistrationRequest;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
