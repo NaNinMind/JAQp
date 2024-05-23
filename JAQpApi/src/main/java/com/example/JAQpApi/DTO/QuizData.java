@@ -6,14 +6,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuizData
+public class QuizData implements Serializable
 {
     @Schema(example = "123")
     private Integer id;
     @Schema(example = "my quiz 123")
     private String name;
+    @Schema(example = "image.jpeg")
+    private String image;
+    @Schema(example = "quiz description")
+    private String description;
 }

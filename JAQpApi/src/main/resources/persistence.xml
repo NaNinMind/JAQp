@@ -1,0 +1,13 @@
+<persistence>
+    <persistence-unit name="sample">
+
+    <jta-data-source>java:/DefaultDS</jta-data-source>
+
+        <properties>
+            <property name="hibernate.search.backend.hosts"
+                      value="192.168.0.19:9200"/>
+            <property name="hibernate.search.backend.protocol"
+                      value="http"/>
+        </properties>
+    </persistence-unit>
+</persistence>

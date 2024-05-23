@@ -11,8 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ChangeAnswerRequest
 {
-    private Integer question_id;
     private String content;
     private Boolean is_right;
-
 }

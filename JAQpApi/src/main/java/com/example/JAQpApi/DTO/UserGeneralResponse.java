@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.OffsetDateTime;
 
@@ -14,7 +15,7 @@ import java.time.OffsetDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserGeneralResponse
+public class UserGeneralResponse implements Serializable
 {
     private Integer id;
 

@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -19,4 +21,6 @@ public class QuizCreateRequest
     private MultipartFile thumbnail;
     @Schema ( example = "quiz about smth")
     private String description;
+
+    private List<String> tags;
 }

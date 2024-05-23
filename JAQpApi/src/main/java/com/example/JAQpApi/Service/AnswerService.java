@@ -12,6 +12,8 @@ import com.example.JAQpApi.Exceptions.ImageException;
 import com.example.JAQpApi.Exceptions.NotFoundException;
 import com.example.JAQpApi.Repository.AnswerRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,6 +34,7 @@ public class AnswerService
                 .build();
     }
 
+    @CacheEvict(value = "QuestionService::GetQuestion", key = "#_request.question_id")
     public GetAnswerResponse AddAnswer(String _token, AnswerCreateRequest _request) throws NotFoundException, AccessDeniedException, ImageException
     {
         Question question = questionService.ValidateAccessAndGetQuestion(_token, _request.getQuestion_id()).orElseThrow(() -> new NotFoundException(("")));
@@ -46,6 +49,7 @@ public class AnswerService
         return GetAnswerResponseFactory(answer);
     }
 
+    @CacheEvict(value = "AnswerService::GetAnswerById", key = "#_id")
     public void DeleteAnswer(String _token, Integer _id) throws NotFoundException, AccessDeniedException, ImageException
     {
         Answer answer = answerRepo.findById(_id).orElseThrow(() -> new NotFoundException("Answer", "id", _id.toString()));
@@ -55,12 +59,14 @@ public class AnswerService
         imageService.DeleteImage(image, _token);
     }
 
+    @Cacheable(value = "AnswerService::GetAnswerById", key = "#_id")
     public GetAnswerResponse GetAnswer(Integer _id) throws NotFoundException
     {
         Answer answer = answerRepo.findById(_id).orElseThrow(() -> new NotFoundException("Answer", "id", _id.toString()));
         return GetAnswerResponseFactory(answer);
     }
 
+    @CacheEvict(value = "AnswerService::GetAnswerById", key = "#_id")
     public GetAnswerResponse ChangeAnswer(String _token, Integer _id, AnswerCreateRequest _request) throws AccessDeniedException, NotFoundException, ImageException
     {
         Answer answer = answerRepo.findById(_id).orElseThrow(() -> new NotFoundException("Answer", "id", _id.toString()));
@@ -76,6 +82,7 @@ public class AnswerService
         return GetAnswerResponseFactory(answer);
     }
 
+    @CacheEvict(value = "AnswerService::GetAnswerById", key = "#_id")
     public GetAnswerResponse ChangeAnswer(String _token, Integer _id, ChangeAnswerRequest _request) throws AccessDeniedException, NotFoundException
     {
         Answer answer = answerRepo.findById(_id).orElseThrow(() -> new NotFoundException("Answer", "id", _id.toString()));

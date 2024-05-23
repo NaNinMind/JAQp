@@ -6,6 +6,8 @@ import com.example.JAQpApi.Entity.Quiz.Quiz;
 import com.example.JAQpApi.Entity.Token.Token;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.example.JAQpApi.Entity.UserAnswer;
+import com.example.JAQpApi.Entity.UserResult;
 import jakarta.persistence.*;
 import lombok.*;
 

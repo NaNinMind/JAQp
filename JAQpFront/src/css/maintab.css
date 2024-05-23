@@ -1,0 +1,139 @@
+.main_tab_statebar {
+  margin-left: -15%;
+  display: grid;
+  padding-right: 28px;
+  grid-template-columns: repeat(auto-fill,minmax(1024px, 1fr));
+}
+
+.main_tab_whitecardwithspace {
+  vertical-align: middle;
+  display:grid;
+  gap: 30px;
+  grid-template-columns: [start] 1fr [image] 2fr [end] auto;
+  padding: 14px;
+  background: #fff;
+  height: 100%;
+}
+
+.main_tab_button {
+  margin-top: 14px;
+  margin-bottom: 14px;
+  border-radius: 4px;
+  background: #0c4f82;
+  padding: 14px;
+  font-family: Futura PT;
+  font-size: large;
+  color: #fff;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.main_tab_button:hover {
+  background: rgb(255, 255, 255);
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+.main_tab_evenly_distributed_field {
+  display: flex;
+  justify-content: space-between;
+  margin: 14px;
+  min-height: 48px;
+  width: 400px;
+  box-sizing: border-box;
+}
+
+.main_tab_column_distributed_field {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 14px;
+  box-sizing: border-box;
+}
+
+.main_tab_flex_width_distributed_field {
+  display: flex;
+  margin-top: 50px;
+  padding-bottom: 14px;
+  justify-content: space-between;
+}
+
+.main_tab_custominput {
+  background: #d9d9d9;
+  padding-left: 14px;
+  border: none;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25) inset;
+  width: 100%;
+  font-family: Futura PT;
+  font-weight: bold;
+  font-size: medium;
+  color: rgb(69, 69, 69);
+  display: grid;
+  position: relative;
+}
+
+.main_tab_custominput_select {
+  border: none;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25) inset;
+  width: 100%;
+  font-family: Futura PT;
+  font-weight: bold;
+  font-size: medium;
+  color: rgb(69, 69, 69);
+  display: grid;
+  position: relative;
+}
+
+.sectionTest {
+  .Select-control {
+    height: 30px;
+  }
+   .Select-placeholder {
+    line-height: 20px;
+  }
+  .Select-value {
+    line-height: 26px !important;
+  }
+
+  .Select-value-label {
+    line-height: 26px;
+  }
+
+   .Select-input {
+    height: 26px;
+  }
+}
+
+
+
+.main_buttondelstate {
+  border-radius: 1px;
+  background: red;
+  height: 36px;
+  font-family: Futura PT;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30%;
+  align-self: center;
+  justify-self: center;
+  width: 168px;
+}
+
+.main_buttondelstate:hover {
+  background: rgb(255, 255, 255);
+  color: red;
+  box-shadow: inset 0 0 0 3px red;
+}
+
+.main_buttondelstate:hover .trashIcon {
+  fill: red;
+}
+
+.trashIcon {
+  fill: white;
+}

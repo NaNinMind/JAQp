@@ -46,6 +46,7 @@ public class AuthService {
         return tokenRepository.findByToken(StripToken(_token)).orElseThrow(() -> new NotFoundException("User", "token" ,_token)).getUser();
     }
     //NO LOGIC TO UNITTEST
+
     public void register(RegistrationRequest request) throws Exception {
             Optional<User> user = userRepository.findByUsername(request.getUsername());
             if ( user.isPresent() ){
@@ -71,7 +72,7 @@ public class AuthService {
                         request.getUsername(), request.getPassword()
                 )
         );
-        var user = userRepository.findByUsername(((UserDetails)authentication.getPrincipal()).getUsername()).orElseThrow( ()-> new NotFoundException("User not found") );
+        var user = userRepository.findByUsername(((UserDetails)authentication.getPrincipal()).getUsername()).orElseThrow( ()-> new NotFoundException("User not found"));
         var jwtToken = jwtService.generateToken(user);
         
         revokeAllUserTokens(user);

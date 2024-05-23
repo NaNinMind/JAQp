@@ -1,0 +1,50 @@
+
+.h1 {
+  color: #000;
+  margin-bottom: 0;
+  font-family: Futura PT;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-top: 0;
+}
+
+.h2 {
+  color: #000;
+  font-family: Futura PT;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 450;
+  line-height: normal;
+}
+
+.bold_text {
+  border: none;
+  background: none;
+  font-family: Futura PT;
+  font-weight: bold;
+  font-size: medium;
+  color: #000;
+}
+
+.light_bold_text {
+  border: none;
+  background: none;
+  font-family: Futura PT;
+  font-weight: bold;
+  font-size: medium;
+  color: #ffffff;
+}
+
+.error_text {
+  color: #ff0000;
+  margin-top: 0;
+  font-family: Futura PT;
+  font-style: normal;
+  font-weight: 450;
+  line-height: normal;
+  float: left;
+}
+
+

@@ -1,0 +1,126 @@
+.quizmain_window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-size: cover;
+  backdrop-filter: brightness(50%);
+}
+.quizmain_window::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.quizmain_workspace {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  overflow-y: scroll;
+  justify-content: center;
+  align-items: center;
+}
+
+.quiz_card {
+  --blur: 16px;
+  position: relative;
+  border-radius: 0px;
+  overflow: hidden;
+  color: #000;
+  transform: translateZ(0);
+  margin: 24px 24px;
+  height: 600px;
+  width: 1144px;
+  
+  background: white;
+  border-left: 60px solid rgb(255, 255, 255);
+  border-right: 60px solid rgb(255, 255, 255);
+  border-top: 10px solid rgb(255, 255, 255);
+  border-bottom: 10px solid rgb(255, 255, 255);
+}
+
+.quiz_card__footer > .quiz_background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: hsl(0 0% 100% / 0.5);
+  backdrop-filter: blur(var(--blur));
+  transform: rotate(14deg);
+  color: #000;
+}
+
+.quiz_card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(calc(1 + (var(--hover, 0) * 0.25)))
+    rotate(calc(var(--hover, 0) * -5deg));
+  transition: transform 0.2s;
+}
+
+.quiz_card__footer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  background: hsl(0 0% 100% / 0.5);
+  backdrop-filter: blur(var(--blur));
+  height: 100%;
+  align-content: center;
+  justify-content: space-around;
+}
+
+.quiz_card__footer span:nth-of-type(1) {
+  font-size: calc(var(--size) * 0.065);
+}
+
+.quiz_card__footer span:nth-of-type(2) {
+  font-size: calc(var(--size) * 0.035);
+}
+
+.quiz_card:is(:hover, :focus-visible) {
+  --hover: 1;
+}
+
+.quiz_information {
+  margin-left: 8px;
+  margin-right: 64px;
+  padding-left: 8px;
+  padding-right: 24px;
+  font-weight: 500;
+  color: #031757;
+  position: relative;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.089);
+  transform: translateY(2px);
+  background: rgba(255, 255, 255, 0.445);
+  text-indent: 20px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quiz_quizname {
+  margin-left: 8px;
+  margin-right: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-weight: 500;
+  color: #031757;
+  position: relative;
+  font-weight: 700;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,21 +1,68 @@
 import { apiHost } from "./apiIndex";
-const userBase = "users/"
-export const LoginUser = async (_username, _password) =>
+const authBase = "/api/auth/";
+const userBase = "/api/users/";
+
+export const LoginUser = async (_user, _pass) => {
+  const raw = {
+    username: _user,
+    password: _pass,
+  };
+  try {
+    return await apiHost.post(authBase + "authenticate", raw);
+  } catch (error) {
+    return null;
+  }
+};
+
+export const RegisterUser = async (_username, _password) => {
+  let result = true;
+  var data = { username: _username, password: _password };
+  result = await apiHost.post(authBase + "register", data);
+  if (result.status === 200) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const Logout = async (_token) =>
 {
-    try{
-    const {data} = await apiHost.get(userBase+"login?password="+_password+"&username="+_username);
-    return data;
-    }
-    catch(e)
-    {
-        console.log(e);
-    }
-}
-export const RegisterUser = async (_username, _password) =>
-{
-    let result = true;
-    await apiHost.post(userBase+"register?password="+_password+"&username="+_username).catch(function(error) {console.log(error); result = false});
-    return result;
+  return apiHost.post(authBase+"logout", null, {
+    headers: {
+      Authorization: "Bearer " + _token,
+    },
+  })
 }
 
-export default RegisterUser;
+export const GetUserGeneral = async (_id) => {
+  var re = await apiHost.get(userBase + _id);
+  return re;
+};
+
+export const SetUserGeneral = async (
+  _token,
+  _id,
+  _firstName,
+  _secondName,
+  _lastName,
+  _birdthDate
+) => {
+  const raw = {
+    firstName: _firstName,
+    lastName: _lastName,
+    secondName: _secondName,
+    birthDate: _birdthDate,
+  };
+
+  let config = {
+    headers: {
+      Authorization: "Bearer " + _token,
+    },
+  };
+
+  return await apiHost.post(userBase + _id + "/setting/general", raw, {
+    headers: {
+      Authorization: "Bearer " + _token,
+    },
+  });
+};

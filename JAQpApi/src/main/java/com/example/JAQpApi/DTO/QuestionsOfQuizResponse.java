@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import com.example.JAQpApi.Entity.Quiz.Question;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionsOfQuizResponse
+public class QuestionsOfQuizResponse implements Serializable
 {
     private List<Integer> questions;
 

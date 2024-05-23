@@ -1,7 +1,6 @@
 package com.example.JAQpApi.Service;
 
 import com.example.JAQpApi.DTO.QuestionCreateRequest;
-import com.example.JAQpApi.DTO.QuestionCreateResponse;
 import com.example.JAQpApi.Entity.Quiz.Answer;
 import com.example.JAQpApi.Entity.Quiz.ImageMetadata;
 import com.example.JAQpApi.Entity.Quiz.Question;
@@ -12,6 +11,8 @@ import com.example.JAQpApi.Exceptions.AccessDeniedException;
 import com.example.JAQpApi.Exceptions.ImageException;
 import com.example.JAQpApi.Exceptions.NotFoundException;
 import com.example.JAQpApi.Repository.QuestionRepo;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,8 @@ public class QuestionService
         this.answerService = answerService;
     }
 
+
+    @CacheEvict(value = "QuestionService::GetQuestion", key = "#_id")
     public Optional<Question> ValidateAccessAndGetQuestion(String _token, Integer _id) throws NotFoundException, AccessDeniedException
     {
         Question question = questionRepo.findById(_id).orElseThrow(() -> new NotFoundException(""));
@@ -50,7 +53,8 @@ public class QuestionService
         }
     }
 
-    public QuestionCreateResponse AddQuestion(String _token, QuestionCreateRequest _request) throws NotFoundException, ImageException, AccessDeniedException
+    @CacheEvict(value = "QuizService::GetQuestions", key = "#_request.quiz_id")
+    public GetQuestionResponse AddQuestion(String _token, QuestionCreateRequest _request) throws NotFoundException, ImageException, AccessDeniedException
     {
         Quiz quiz = quizService.ValidateAccessAndGetQuiz(_token, _request.getQuiz_id()).orElseThrow(() -> new NotFoundException(""));
         ImageService.ImageMetadataWithName imageMetadataWithName = imageService.HandleNullableImageRequest(_token, _request.getImage());
@@ -60,13 +64,10 @@ public class QuestionService
                 .quiz(quiz)
                 .build();
         questionRepo.save(question);
-        return QuestionCreateResponse.builder()
-                .content(question.getDescription())
-                .id(question.getId())
-                .imageName(imageMetadataWithName.getImageName())
-                .build();
+        return GetQuestionResponseFactory(question);
     }
 
+    @CacheEvict(value = "QuestionService::GetQuestion", key = "#_id")
     public void DeleteQuestion(String _token, Integer _id) throws NotFoundException, AccessDeniedException, ImageException
     {
         Question question = questionRepo.findById(_id).orElseThrow(() -> new NotFoundException("Question", "id", Integer.toString(_id)));
@@ -84,9 +85,12 @@ public class QuestionService
     private GetQuestionResponse GetQuestionResponseFactory(Question _question)
     {
         List<Integer> answerId = new ArrayList<>();
-        for (Answer answer: _question.getAnswerList())
+        if(_question.getAnswerList() != null)
         {
-            answerId.add(answer.getId());
+            for (Answer answer: _question.getAnswerList())
+            {
+                answerId.add(answer.getId());
+            }
         }
         return GetQuestionResponse.builder()
                 .description(_question.getDescription())
@@ -97,12 +101,14 @@ public class QuestionService
     }
 
 
+    @Cacheable(value = "QuestionService::GetQuestion", key = "#_id")
     public GetQuestionResponse GetQuestion(Integer _id) throws NotFoundException
     {
         Question question = questionRepo.findById(_id).orElseThrow(() -> new NotFoundException("Question", "id", Integer.toString(_id)));
         return GetQuestionResponseFactory(question);
     }
 
+    @CacheEvict(value = "QuestionService::GetQuestion", key = "#_id")
     public GetQuestionResponse ChangeQuestion(String _token, Integer _id, QuestionCreateRequest _request) throws AccessDeniedException, NotFoundException, ImageException
     {
         Question question = ValidateAccessAndGetQuestion(_token, _id).orElseThrow(() -> new NotFoundException("Question", "id", Integer.toString(_id)));
@@ -116,6 +122,7 @@ public class QuestionService
         return GetQuestionResponseFactory(question);
     }
 
+    @CacheEvict(value = "QuestionService::GetQuestion", key = "#_id")
     public GetQuestionResponse ChangeQuestion(String _token, Integer _id, String _description) throws AccessDeniedException, NotFoundException
     {
         Question question = ValidateAccessAndGetQuestion(_token, _id).orElseThrow(() -> new NotFoundException("Question", "id", Integer.toString(_id)));

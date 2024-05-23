@@ -1,0 +1,114 @@
+.user_window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-size: cover;
+}
+
+.user_workspace {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  overflow-y: scroll;
+  flex-direction: column;
+  justify-content: safe center;
+  align-items: safe center;
+}
+
+.user_whitecard_with_space {
+  vertical-align: middle;
+  display: flex;
+  flex-direction: column;
+  margin: none;
+  background: #fff;
+  padding: 14px;
+  margin-top: 14px;
+}
+
+.user_evenly_distributed_field {
+  display: flex;
+  justify-content: space-around;
+  margin: 14px;
+
+  box-sizing: border-box;
+}
+
+:root {
+  --omrs-color-ink-lowest-contrast: rgba(77, 77, 77, 0.24);
+  --omrs-color-ink-medium-contrast: rgba(41, 41, 41, 0.747);
+  --omrs-color-interaction: #000000;
+  --omrs-color-bg-low-contrast: #ffffff;
+  --omrs-color-ink-high-contrast: #121212;
+  --omrs-color-bg-high-contrast: #ffffff;
+}
+div.omrs-input-group {
+  position: relative;
+  height: 34px;
+  font-family: Futura PT;
+  color: var(--omrs-color-interaction);
+}
+
+.omrs-input-filled > p {
+  border: none;
+  border-bottom: 0.125rem solid var(--omrs-color-ink-medium-contrast);
+  width: 100%;
+  height: 32px;
+  font-size: 1.0625rem;
+
+  font-family: Futura PT;
+}
+
+.omrs-input-filled > p {
+  width: 100%;
+
+  min-width: 256px;
+  display: grid;
+  position: relative;
+}
+
+.omrs-input-filled > .omrs-input-label {
+  position: absolute;
+
+  line-height: 147.6%;
+  color: var(--omrs-color-ink-medium-contrast);
+  transition: top 0.2s;
+  font-size: 20px;
+}
+
+.tab_buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-left: 28px;
+  margin-right: 28px;
+  font-family: 'Futura PT';
+}
+
+.tab_buttons button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Futura PT';
+}
+
+.tab_buttons button.active {
+  background-color: #dcdcdc;
+  font-weight: bold;
+}
+
+.tab_content {
+  margin-left: 28px;
+  margin-right: 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+  overflow-x: scroll;
+  border: 1px solid #dcdcdc;
+  background: #dcdcdc;
+}

@@ -1,10 +1,12 @@
 package com.example.JAQpApi.Entity.Quiz;
 
 import com.example.JAQpApi.Entity.User.User;
+import com.example.JAQpApi.Entity.UserResult;
 import jakarta.persistence.*;
 import lombok.*;
 import org.checkerframework.common.aliasing.qual.Unique;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.*;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Indexed(index = "quiz_index")
 public class Quiz
 {
     @Column(nullable = false)
@@ -23,10 +26,18 @@ public class Quiz
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
+
+    @GenericField
+
+    private Boolean isPublic;
+
     @Column(nullable = true)
+    @FullTextField
     private String name;
 
     @Column(nullable = true)
+    @FullTextField
     private String description;
 
     @ManyToOne
@@ -39,4 +50,12 @@ public class Quiz
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Question> questions;
+
+
+    @ManyToMany
+    @IndexedEmbedded
+    private List<Tag> tags;
+
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.REMOVE)
+    private List<UserResult> userResults;
 }

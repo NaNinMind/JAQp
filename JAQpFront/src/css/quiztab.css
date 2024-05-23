@@ -1,0 +1,144 @@
+.quiz_space {
+  margin-left: -15%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(550px, 2fr));
+  overflow-x: scroll;
+}
+
+.btn {
+  position: relative;
+  bottom: 14px;
+  margin-top: 14px;
+  border-radius: 4px;
+  background: #0c4f82;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  font-family: Futura PT;
+  font-size: large;
+  color: #fff;
+  border: none;
+  width: 128px;
+}
+
+.control {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn:hover {
+  background: rgb(255, 255, 255);
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+.addButton {
+  position: relative;
+  bottom: 14px;
+  margin-top: 14px;
+  border-radius: 4px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  font-family: Futura PT;
+  font-size: large;
+  border: none;
+  width: 250px;
+
+  color: #fff;
+  background: blue;
+  margin-top: 24px;
+}
+.addButton:hover {
+  color: blue;
+  background: white;
+  box-shadow: none;
+}
+.information {
+  margin-left: 8px;
+  margin-right: 64px;
+  padding-left: 8px;
+  padding-right: 24px;
+  font-weight: 500;
+  color: #031757;
+  position: relative;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.089);
+  transform: translateY(2px);
+  background: rgba(255, 255, 255, 0.445);
+  text-indent: 20px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quizname {
+  margin-left: 8px;
+  margin-right: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-weight: 500;
+  color: #031757;
+  position: relative;
+  font-weight: 700;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card {
+  box-shadow: 0 1px 1px 1px rgba(128, 128, 128, 0.31);
+  --blur: 16px;
+  position: relative;
+  border-radius: 0px;
+  overflow: hidden;
+  color: #000;
+  transform: translateZ(0);
+  margin: 24px 24px;
+  height: 300px;
+}
+
+.card__footer > .background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: hsl(0 0% 100% / 0.5);
+  backdrop-filter: blur(var(--blur));
+  transform: rotate(14deg);
+}
+
+.card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(calc(1 + (var(--hover, 0) * 0.25)))
+    rotate(calc(var(--hover, 0) * -5deg));
+  transition: transform 0.2s;
+}
+
+.card__footer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  background: hsl(0 0% 100% / 0.5);
+  backdrop-filter: blur(var(--blur));
+  height: 100%;
+  align-content: center;
+  justify-content: space-around;
+}
+
+.card__footer span:nth-of-type(1) {
+  font-size: calc(var(--size) * 0.065);
+}
+
+.card__footer span:nth-of-type(2) {
+  font-size: calc(var(--size) * 0.035);
+}
+
+.card:is(:hover, :focus-visible) {
+  --hover: 1;
+}

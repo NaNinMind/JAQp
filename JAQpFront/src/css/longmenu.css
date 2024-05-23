@@ -1,0 +1,242 @@
+.long_menu_header_container {
+  height: 56px;
+  background: white;
+  display: flex;
+  width: 100%;
+  top: 0;
+  overflow: hidden;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.336);
+  position: relative;
+}
+
+.long_menu_block {
+  text-align: center;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.long_menu_evenly_distributed_block {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  white-space: nowrap;
+  height: 100%;
+  padding-left: 4%;
+  padding-right: 4%;
+}
+
+@media (min-width: 768px) {
+  .icon,
+  .button_icon {
+    height: 30px;
+    margin: auto;
+    padding: 14px;
+  }
+
+  .logo_name {
+    color: #000;
+    margin: auto;
+    font-family: Futura PT;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    padding: 4px;
+    line-height: normal;
+  }
+
+  .logo_text {
+    color: #000;
+    margin: auto;
+    padding: auto;
+    padding-left: 4px;
+    font-family: Futura PT;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+  }
+
+  .text {
+    color: #000;
+    margin: auto;
+    padding: 19px;
+    font-family: Futura PT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+  }
+
+  .text:hover {
+    box-shadow: 0 0 2px -4px rgba(31, 73, 125, 0.8),
+      0 0 8px -4px rgba(31, 73, 125, 0.8);
+  }
+
+  .button_icon:hover {
+    box-shadow: 0 0 2px -4px rgba(31, 73, 125, 0.8),
+      0 0 8px -4px rgba(31, 73, 125, 0.8);
+  }
+
+  .user_block {
+    display: flex;
+    padding-right: 8px;
+  }
+
+  .user_block:hover {
+    box-shadow: 0 0 2px -4px rgba(31, 73, 125, 0.8),
+      0 0 8px -4px rgba(31, 73, 125, 0.8);
+  }
+
+  .simple_text {
+    color: #000;
+    margin: auto;
+    font-family: Futura PT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+  }
+
+  .button_icon_small {
+    display: none;
+  }
+}
+@media (max-width: 769px) {
+  .icon,
+  .button_icon {
+    height: 30px;
+    margin: auto;
+    padding: 14px;
+  }
+
+  .logo_name {
+    color: #000;
+    margin: auto;
+    font-family: Futura PT;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    padding: 4px;
+    line-height: normal;
+  }
+
+  .logo_text {
+    color: #000;
+    margin: auto;
+    padding: auto;
+    padding-left: 4px;
+    font-family: Futura PT;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+  }
+
+  .text {
+    color: #000;
+    margin: auto;
+    padding: 19px;
+    font-family: Futura PT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+  }
+
+  .text:hover {
+    box-shadow: 0 0 2px -4px rgba(31, 73, 125, 0.8),
+      0 0 8px -4px rgba(31, 73, 125, 0.8);
+  }
+
+  .button_icon:hover {
+    box-shadow: 0 0 2px -4px rgba(31, 73, 125, 0.8),
+      0 0 8px -4px rgba(31, 73, 125, 0.8);
+  }
+
+  .user_block {
+    display: flex;
+    padding-right: 8px;
+  }
+
+  .user_block:hover {
+    box-shadow: 0 0 2px -4px rgba(31, 73, 125, 0.8),
+      0 0 8px -4px rgba(31, 73, 125, 0.8);
+  }
+
+  .simple_text {
+    color: #000;
+    margin: auto;
+    font-family: Futura PT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+  }
+
+  .button_icon_small {
+    display: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  .logo_text {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .simple_text,
+  .logo_name {
+    display: none;
+  }
+}
+
+/* Стили для окна поиска */
+.search_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Темный полупрозрачный фон */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Убедитесь, что окно поиска находится поверх других элементов */
+}
+
+/* Стили для контейнера поиска внутри окна */
+.search_container {
+  display: flex;
+  padding: 20px;
+  
+  
+}
+
+/* Стили для текста внутри окна */
+.search_container input[type="text"],
+.search_container button {
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+/* Стили для кнопки "Закрыть" */
+.search_container button {
+  background: none; /* Цвет кнопки */
+  color: white; /* Цвет текста */
+  cursor: pointer;
+
+}
+
+/* Стили для текста внутри окна */
+.search_container input[type="text"] {
+  width: 70vh;
+}
+

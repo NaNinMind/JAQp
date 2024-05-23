@@ -1,0 +1,396 @@
+.settings_date_input {
+  background: #d9d9d9;
+  padding-left: 14px;
+  border: none;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25) inset;
+  width: 386px;
+  font-family: Futura PT;
+  font-weight: bold;
+  font-size: medium;
+  color: rgb(69, 69, 69);
+  display: grid;
+  position: relative;
+  height: 48px;
+}
+.settings_window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-size: cover;
+}
+
+.settings_workspace {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  overflow-y: scroll;
+  flex-direction: column;
+  justify-content: safe center;
+  align-items: safe center;
+}
+
+.settings_whitecard_with_space {
+  vertical-align: middle;
+  display: flex;
+  flex-direction: column;
+  margin: none;
+  background: #fff;
+  padding: 14px;
+  margin-top: 14px;
+}
+
+.settings_button {
+  margin-top: 14px;
+  margin-bottom: 14px;
+  border-radius: 4px;
+  background: #0c4f82;
+  padding: 14px;
+  font-family: Futura PT;
+  font-size: large;
+  color: #fff;
+  border: none;
+
+  cursor: pointer;
+}
+
+.settings_button:hover {
+  background: rgb(255, 255, 255);
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+.settings_evenly_distributed_field {
+  display: flex;
+  justify-content: space-around;
+  margin: 14px;
+  height: 48px;
+  width: 400px;
+  box-sizing: border-box;
+}
+
+.settings_input {
+  background: #d9d9d9;
+  padding-left: 14px;
+  border: none;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25) inset;
+  width: 100%;
+  font-family: Futura PT;
+  font-weight: bold;
+  font-size: medium;
+  color: rgb(69, 69, 69);
+  display: grid;
+  position: relative;
+}
+
+.buttongit {
+  border-radius: 4px;
+  margin-right: 14px;
+  background: #0d0d0d;
+  padding: 14px;
+  font-family: Futura PT;
+  font-size: large;
+  color: #fff;
+  border: none;
+  width: 100%;
+  height: 48px;
+  cursor: pointer;
+}
+
+.buttongit:hover {
+  background: rgb(255, 255, 255);
+  color: #0d0d0d;
+  box-shadow: inset 0 0 0 3px #2d2d2d;
+}
+
+.buttontg {
+  border-radius: 4px;
+  margin-right: 14px;
+  background: #4dabf9;
+  padding: 14px;
+  font-family: Futura PT;
+  font-size: large;
+  color: #fff;
+  border: none;
+  width: 100%;
+  height: 48px;
+  cursor: pointer;
+}
+
+.buttontg:hover {
+  background: rgb(255, 255, 255);
+  color: #4dabf9;
+  box-shadow: inset 0 0 0 3px #86c6fb;
+}
+
+.buttonvk {
+  height: 48px;
+  border-radius: 4px;
+  background: #0c4f82;
+  padding: 14px;
+  font-family: Futura PT;
+  font-size: large;
+  color: #fff;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.buttonvk:hover {
+  background: rgb(255, 255, 255);
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+.settings_buttondel {
+  height: 48px;
+  border-radius: 4px;
+  background: red;
+  padding: 14px;
+  font-family: Futura PT;
+  font-size: large;
+  color: #fff;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings_buttondel:hover {
+  background: rgb(255, 255, 255);
+  color: red;
+  box-shadow: inset 0 0 0 3px red;
+}
+
+.settings_buttondel:hover .trashIcon {
+  fill: red;
+}
+
+.trashIcon {
+  fill: white;
+}
+
+.settings_help_text {
+  font-family: Futura PT;
+
+  color: var(--omrs-color-ink-medium-contrast);
+  padding-right: "14px";
+  align-self: "center";
+  margin-left: "8px";
+  font-size: 20px;
+}
+
+.react-datepicker {
+  text-transform: capitalize;
+}
+
+.react-datepicker__header {
+  background: #0c4f82;
+  font-family: Futura PT;
+  width: 400px;
+  justify-items: stretch;
+}
+
+.react-datepicker__calendar-icon {
+  margin-left: 67%;
+  fill: var(--omrs-color-ink-medium-contrast);
+  margin-top: 16px;
+}
+
+.react-datepicker-wrapper>.react-datepicker__input-container.react-datepicker__view-calendar-icon:last-child:focus-within > svg{
+  fill: var(--omrs-color-interaction);
+  
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name,
+.react-datepicker__month-read-view,
+.react-datepicker__year-read-view {
+  color: white;
+  font-size: large;
+}
+
+.react-datepicker__month-option,
+.react-datepicker__year-option {
+  font-size: large;
+}
+
+.react-datepicker__month-option:hover,
+.react-datepicker__year-option:hover {
+  background: #3a7999;
+  color: white;
+}
+
+.react-datepicker__close-icon::before,
+.react-datepicker__close-icon::after {
+  background-color: #d9d9d9;
+  color: rgb(69, 69, 69);
+  font-size: 24px;
+}
+
+div.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  width: 100%;
+  margin-right: 14px;
+  border: 1px solid whitesmoke;
+  border-radius: 4px;
+}
+:root {
+  --omrs-color-ink-lowest-contrast: rgba(77, 77, 77, 0.24);
+  --omrs-color-ink-medium-contrast: rgba(41, 41, 41, 0.747);
+  --omrs-color-interaction: #000000;
+  --omrs-color-bg-low-contrast: #ffffff;
+  --omrs-color-ink-high-contrast: #121212;
+  --omrs-color-bg-high-contrast: #ffffff;
+}
+div.omrs-input-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+  width: 100%;
+  margin-right: 14px;
+  font-family: Futura PT;
+  color: var(--omrs-color-interaction);
+}
+
+.omrs-input-filled > input, .omrs-input-filled > textarea {
+  border: none;
+  border-bottom: 0.125rem solid var(--omrs-color-ink-medium-contrast);
+  width: 100%;
+  height: 32px;
+  font-size: 1.0625rem;
+  padding-left: 0.875rem;
+  padding-top: 16px;
+  padding-bottom: -4px;
+  font-family: Futura PT;
+}
+
+.omrs-input-filled > textarea {
+  width: 386px;
+  max-width: 386px;
+  min-width: 386px;
+  max-height: 128px;
+  min-height: 34px;
+  
+  display: grid;
+  position: relative;
+}
+
+.omrs-input-filled
+  > .react-datepicker-wrapper
+  .react-datepicker__input-container
+  input {
+  border: none;
+  border-bottom: 0.125rem solid var(--omrs-color-ink-medium-contrast);
+  width: 270px;
+  height: 32px;
+  padding-left: 14px;
+  font-size: 1.0625rem;
+  padding-top: 16px;
+  padding-bottom: -4px;
+  margin-right: 58px;
+}
+
+.omrs-input-filled > input:focus,
+.omrs-input-filled > textarea:focus,
+.omrs-input-filled
+  > .react-datepicker-wrapper
+  .react-datepicker__input-container
+  input:focus {
+  outline: none;
+  background: var(--omrs-color-ink-lowest-contrast);
+  color: var(--omrs-color-interaction);
+}
+
+.omrs-input-filled > .omrs-input-label {
+  position: absolute;
+  top: 0.9375rem;
+  left: 0.875rem;
+  line-height: 147.6%;
+  color: var(--omrs-color-ink-medium-contrast);
+  transition: top 0.2s;
+  font-size: 20px;
+}
+
+.omrs-input-filled > svg {
+  position: absolute;
+  top: 0.9375rem;
+  right: 0.875rem;
+  fill: var(--omrs-color-ink-medium-contrast);
+}
+
+.omrs-input-filled > input:hover, .omrs-input-filled > textarea:hover,
+.omrs-input-filled
+  > .react-datepicker-wrapper
+  .react-datepicker__input-container
+  input:hover {
+  background: var(--omrs-color-ink-lowest-contrast);
+}
+
+.omrs-input-filled > input:focus + .omrs-input-label,
+.omrs-input-filled > input:valid + .omrs-input-label,
+.omrs-input-filled > textarea:focus + .omrs-input-label,
+.omrs-input-filled > textarea:valid + .omrs-input-label,
+.omrs-input-filled
+  > .react-datepicker-wrapper
+  .react-datepicker__input-container
+  input:valid
+  + .omrs-input-label,
+.omrs-input-filled
+  > .react-datepicker-wrapper
+  .react-datepicker__input-container
+  input:focus
+  + .omrs-input-label {
+  top: -18px;
+  font-size: 0.9375rem;
+  margin-bottom: 32px;
+  font-weight: bold;
+}
+
+.omrs-input-filled:not(.omrs-input-danger) > input:focus + .omrs-input-label,
+.omrs-input-filled:not(.omrs-input-danger) > textarea:focus + .omrs-input-label,
+.omrs-input-filled:not(.omrs-input-danger)
+  > .omrs-input-label
+  ~ .react-datepicker-wrapper
+  .react-datepicker__input-container
+  input:focus {
+  color: var(--omrs-color-interaction);
+
+}
+
+
+.omrs-input-filled:not(.omrs-input-danger) > input:focus,
+.omrs-input-filled:not(.omrs-input-danger) >textarea:focus,
+.omrs-input-filled:not(.omrs-input-danger)
+  > .react-datepicker-wrapper
+  .react-datepicker__input-container
+  input:focus {
+  border-color: var(--omrs-color-interaction);
+}
+
+.omrs-input-filled:not(.omrs-input-danger) > input:focus ~ svg,
+.omrs-input-filled:not(.omrs-input-danger) > textarea:focus ~ svg,
+.omrs-input-filled:not(.omrs-input-danger)
+  + svg
+  ~ .react-datepicker-wrapper
+  .react-datepicker__input-container
+  input:focus {
+  fill: var(--omrs-color-ink-high-contrast);
+}
+.omrs-input-filled > input,
+.omrs-input-filled > textarea,
+.omrs-input-filled
+  > .react-datepicker-wrapper
+  .react-datepicker__input-container
+  input {
+  background: var(--omrs-color-bg-low-contrast);
+}

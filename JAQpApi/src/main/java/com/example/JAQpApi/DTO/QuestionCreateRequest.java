@@ -8,11 +8,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.io.Serializable;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionCreateRequest
+public class QuestionCreateRequest implements Serializable
 {
     @Schema( example = "123")
     private Integer quiz_id;

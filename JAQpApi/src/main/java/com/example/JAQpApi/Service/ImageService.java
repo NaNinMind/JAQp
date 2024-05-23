@@ -86,7 +86,7 @@ public class ImageService
             {
                 return MediaType.IMAGE_PNG;
             }
-            case "jpeg":
+            case "jpeg", "jpg":
             {
                 return MediaType.IMAGE_JPEG;
             }

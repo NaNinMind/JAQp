@@ -22,7 +22,7 @@ import org.springframework.lang.Nullable;
 import com.example.JAQpApi.DTO.*;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/quiz")
@@ -144,9 +144,37 @@ public class QuizController
 
     )
     @GetMapping("/get_owned")
-    public OwnedQuizListResponse GetOwnedQuiz(@RequestHeader @Nullable String Authorization) throws NotFoundException
+    public OwnedQuizListResponse GetOwnedQuiz(@RequestHeader String Authorization) throws NotFoundException
     {
         return quizService.GetOwnedQuiz(Authorization);
+    }
+
+    // read owned quiz
+    @Operation(
+        summary = "Получить квизы пользователя.",
+        description = "Получить квизы пользователя.",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "Квизы получены",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(
+                        implementation = OwnedQuizListResponse.class
+                    )
+                )
+            ),
+            @ApiResponse(
+                responseCode = "401",
+                description = "UNAUTHENTICATED"
+            )
+        }
+
+    )
+    @GetMapping("/get_owned/{id}")
+    public OwnedQuizListResponse GetOwnedQuiz(@PathVariable Integer id) throws NotFoundException
+    {
+        return quizService.GetOwnedQuiz(id);
     }
 
 
@@ -155,6 +183,13 @@ public class QuizController
     {
         return quizService.GetQuestionsOfQuiz(id);
     }
+
+    @PostMapping("/change_public/{id}")
+    public QuizResponse TogglePublic(@RequestHeader String Authorization, @PathVariable Integer id) throws AccessDeniedException, NotFoundException
+    {
+        return quizService.TogglePublic(Authorization, id);
+    }
+
 
     /*--- UPDATE ---*/
     @Operation(
@@ -224,4 +259,5 @@ public class QuizController
         quizService.DeleteQuiz(Authorization, id);
         return ResponseEntity.ok("OK");
     }
+
 }

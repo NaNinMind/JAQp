@@ -1,0 +1,84 @@
+.main_workspace {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Расстояние между элементами */
+  overflow-y: scroll;
+ 
+}
+
+.main_window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-size: cover;
+  backdrop-filter: brightness(50%);
+  
+}
+
+.main_window::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.main_cardlist {
+  min-height: calc(100vh - 169px);
+  background: white;
+  padding-top: 56px;
+  padding-bottom: 56px;
+  padding-left: 128px;
+  padding-right: 128px;
+  overflow-y: scroll;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  width: 50%;
+  grid-template-rows: repeat(10, auto);
+  
+}
+
+.pagination {
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  background: white; 
+  font-family: "Futura PT", sans-serif; 
+  font-weight: bold;
+  padding: 20px 0;
+  box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.1);
+  width: 64.5%;
+}
+
+.pagination button {
+  background: #063f6a;
+  color: #ffffff;
+  border: 0px outset #3d77a3;
+  cursor: pointer;
+}
+.pagination button:hover {
+  background: #3d77a3;
+}
+
+@media (max-width: 600px) {
+  .main_cardlist {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));
+    overflow-y: scroll;
+    width: 100vh;
+    padding: 0px;
+    margin: 0px;
+  }
+}

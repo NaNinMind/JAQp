@@ -21,7 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 @SecurityRequirement( name = "bearerAuth" )

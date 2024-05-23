@@ -1,0 +1,91 @@
+.quizres_window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-size: cover;
+  z-index: -1;
+  backdrop-filter: brightness(50%);
+}
+
+.quizres_window::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.quizres_workspace {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Futura PT;
+  z-index: -1;
+  overflow-y: scroll;
+}
+
+.results_container{
+    background: white;
+    
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    padding: 54px;
+    justify-content: center;
+}
+.results_container div p{
+    color: rgba(0, 0, 0, 0.658);
+}
+
+.results_container > p{
+    font-size: larger;
+}
+
+.results_button {
+    border-radius: 4px;
+    background: rgb(12, 79, 130);
+    padding: 14px;
+    font-family: Futura PT;
+    font-size: large;
+    color: #fff;
+    border: none;
+    height: 48px;
+    width: 192px;
+    margin-top: 64px;
+    margin-left: 54px;
+    cursor: pointer;
+  }
+
+  .results_button:hover {
+    background: rgb(255, 255, 255);
+    color: rgb(58, 121, 153);
+    box-shadow: inset 0 0 0 3px #3a7999;
+  }
+
+  .results_textbutton {
+    border: none;
+    background: none;
+    font-family: Futura PT;
+    font-weight: bold;
+    font-size: medium;
+    color: #000;
+    margin-right: 14px;
+    height: 48px;
+    margin-right: 54px;
+    padding-top: 24px;
+    cursor: pointer;
+  }
+  
+  .results_textbutton:hover {
+    color: #5d5d5d;
+    text-decoration: underline;
+  }
