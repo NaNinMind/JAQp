@@ -44,10 +44,11 @@ public class SecurityConfig {
             .authorizeHttpRequests((authorizeHttpRequests) ->
                     authorizeHttpRequests
                         .requestMatchers(WHITE_LIST_URL).permitAll()
+                        .requestMatchers("/api/users/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/demo-controller/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                         .anyRequest().authenticated()
+                        
             )
             .addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();

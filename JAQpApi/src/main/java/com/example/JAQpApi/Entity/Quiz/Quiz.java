@@ -4,6 +4,7 @@ import com.example.JAQpApi.Entity.User.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.checkerframework.common.aliasing.qual.Unique;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
@@ -36,6 +37,6 @@ public class Quiz
     @JoinColumn(name = "imageMetadata_name", nullable = true)
     private ImageMetadata thumbnail;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Question> questions;
 }

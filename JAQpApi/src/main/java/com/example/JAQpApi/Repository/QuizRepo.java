@@ -9,9 +9,11 @@ import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Hidden
 public interface QuizRepo extends JpaRepository<Quiz, Integer>
 {
     List<Quiz> findAllByOwner(User owner);
+    Optional<Quiz> findByName(String name);
 }

@@ -14,6 +14,5 @@ import java.util.List;
 public class OwnedQuizListResponse
 {
 
-
     private List<QuizData> quizDataList;
 }

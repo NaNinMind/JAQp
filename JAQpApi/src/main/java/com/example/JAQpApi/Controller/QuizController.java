@@ -1,6 +1,5 @@
 package com.example.JAQpApi.Controller;
 
-import com.example.JAQpApi.DTO.ImageUploadRequest;
 import com.example.JAQpApi.DTO.OwnedQuizListResponse;
 import com.example.JAQpApi.DTO.QuizCreateRequest;
 import com.example.JAQpApi.DTO.QuizResponse;
@@ -13,21 +12,14 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+//import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
-import org.springframework.security.core.parameters.P;
 import com.example.JAQpApi.DTO.*;
-import com.example.JAQpApi.Exceptions.*;
-import com.example.JAQpApi.Service.QuizService;
-import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -176,7 +168,7 @@ public class QuizController
                 )
             )
         ),
-        requestBody = @RequestBody(
+        requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
             content = @Content(
                 schema = @Schema(
                     implementation = QuizCreateRequest.class
@@ -201,7 +193,7 @@ public class QuizController
                 )
             )
         ),
-        requestBody = @RequestBody(
+        requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
             content = @Content(
                 schema = @Schema(
                     implementation = QuizChangeRequest.class

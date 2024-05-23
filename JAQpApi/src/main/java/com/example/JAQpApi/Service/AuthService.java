@@ -35,15 +35,17 @@ public class AuthService {
     private final JWTService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    //NO LOGIC TO UNITTEST
     private String StripToken(String _token)
     {
         return _token.substring(7);
     }
+    //NO LOGIC TO UNITTEST
     public User GetUserByToken(String _token) throws NotFoundException
     {
         return tokenRepository.findByToken(StripToken(_token)).orElseThrow(() -> new NotFoundException("User", "token" ,_token)).getUser();
     }
-
+    //NO LOGIC TO UNITTEST
     public void register(RegistrationRequest request) throws Exception {
             Optional<User> user = userRepository.findByUsername(request.getUsername());
             if ( user.isPresent() ){
@@ -61,7 +63,7 @@ public class AuthService {
             }
         
     }
-
+    //NO LOGIC TO UNITTEST
     public AuthenticationResponse authenticate(AuthenticationRequest request) throws NotFoundException, AuthenticationException {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -69,8 +71,7 @@ public class AuthService {
                         request.getUsername(), request.getPassword()
                 )
         );
-        var user = userRepository.findByUsername( ((UserDetails)authentication.getPrincipal()).getUsername() ).orElseThrow( ()-> new NotFoundException("User not found") );
-
+        var user = userRepository.findByUsername(((UserDetails)authentication.getPrincipal()).getUsername()).orElseThrow( ()-> new NotFoundException("User not found") );
         var jwtToken = jwtService.generateToken(user);
         
         revokeAllUserTokens(user);
@@ -81,7 +82,7 @@ public class AuthService {
                 .username(user.getUsername())
                 .build();
     }
-
+    //NO LOGIC TO UNITTEST
     private void revokeAllUserTokens(User user){
         var validUserTokens = tokenRepository.findAllValidTokensByUserId(user.getId());
         if ( validUserTokens.isEmpty() ){
@@ -94,7 +95,7 @@ public class AuthService {
         });
         tokenRepository.saveAll(validUserTokens);
     }
-
+    //NO LOGIC TO UNITTEST
     void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)

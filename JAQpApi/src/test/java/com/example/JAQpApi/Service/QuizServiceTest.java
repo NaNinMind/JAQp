@@ -1,46 +1,42 @@
 package com.example.JAQpApi.Service;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.example.JAQpApi.DTO.AuthenticationRequest;
-import com.example.JAQpApi.DTO.RegistrationRequest;
+import com.example.JAQpApi.DTO.QuizCreateRequest;
+import com.example.JAQpApi.DTO.QuizResponse;
+import com.example.JAQpApi.Entity.Quiz.Quiz;
 import com.example.JAQpApi.Entity.User.Role;
 import com.example.JAQpApi.Entity.User.User;
+import com.example.JAQpApi.Exceptions.AccessDeniedException;
+import com.example.JAQpApi.Exceptions.ImageException;
+import com.example.JAQpApi.Exceptions.NotFoundException;
 import com.example.JAQpApi.Repository.QuizRepo;
-import com.example.JAQpApi.Repository.TokenRepo;
-import com.example.JAQpApi.Repository.UserRepo;
-
-import ch.qos.logback.core.subst.Token;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+
+import static org.mockito.ArgumentMatchers.*;
 
 @TestInstance(Lifecycle.PER_CLASS)
 @RequiredArgsConstructor
 public class QuizServiceTest {
     
 
-    @Mock
-    private QuizRepo quizRepo;
+    @Mock private QuizRepo quizRepo;
+    @Mock private AuthService authService;
+    @Mock private QuestionService questionService;
 
-    @Mock private UserRepo userRepo;
-    @Mock private TokenRepo tokenRepo;
-    
-    @InjectMocks
-    private AuthService authService;
+    @Mock
+    QuizService mockService;
 
     @InjectMocks
     QuizService quizService;
@@ -48,74 +44,71 @@ public class QuizServiceTest {
     @BeforeAll
     void setUp(){
         MockitoAnnotations.openMocks(this);
-        var admin = User.builder()
-				.username("admin")
-				.password("admin")
-				.role(Role.ADMIN)
-				.build();
-        
-        var adminAuth = AuthenticationRequest.builder()
-				.username("admin")
-				.password("admin")
-				.build();
-        try {
-            userRepo.save(admin);
-            var userList = userRepo.findAll();
-            for ( User user : userList ){
-                System.out.println(user.toString());
-            }
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-        }
     }
 
 
-    @Test
-    void testChangeQuiz() {
-        
-        
-
-    }
+    //QUIZ CREATE TESTS
 
     @Test
-    void testChangeQuiz2() {
-
-    }
-
-    @Test
-    void testCreateQuiz() {
+    void testCreateQuiz_NoImage_Correct() throws NotFoundException, ImageException {
 
         // assemble
-
+        QuizCreateRequest quizCreateRequest = QuizCreateRequest.builder()
+                                                                .name("quizName")
+                                                                .description("quizDescription")
+                                                                .thumbnail(null)
+                                                                .build();
+        User mockUser = User.builder()
+                            .id(1)
+                            .username("mockUsername")
+                            .password("mockPassword")
+                            .role(Role.ADMIN)
+                            .build();                                                        
+        Quiz mockQuiz = Quiz.builder()
+                            .description(quizCreateRequest.getDescription())
+                            .name(quizCreateRequest.getName())
+                            .thumbnail(null)
+                            .owner(mockUser)
+                            .id(1)
+                            .build();
+        String mockToken = "mockToken";
+        
+        when(authService.GetUserByToken(mockToken)).thenReturn(mockUser);
+        when(quizRepo.save(any(Quiz.class))).thenReturn(mockQuiz);
         // act
+        QuizResponse response = quizService.CreateQuiz(mockToken, quizCreateRequest);
 
         // assert
-
+        assertEquals(response.getId(), mockQuiz.getId());
+        assertEquals(response.getDescription(), mockQuiz.getDescription());
+        assertEquals(response.getName(), mockQuiz.getName());
+        
     }
 
+    // AUX METHODS TESTS
     @Test
-    void testDeleteQuiz() {
+    void testValidateAccessAndGetQuiz_OK() throws AccessDeniedException, NotFoundException {
+        //assemble
+        String mockToken = "qwe";
+        Integer mockId = 1;
+        int mockUserId = 1;
 
-    }
+        User mockUser = User.builder()
+                            .id(mockUserId)
+                            .build();
+        Quiz mockQuiz = Quiz.builder()
+                            .id(mockId)
+                            .owner(mockUser)
+                            .build();
 
-    @Test
-    void testGetOwnedQuiz() {
+        when(quizRepo.findById(anyInt())).thenReturn(Optional.of(mockQuiz));
+        when(authService.GetUserByToken(anyString())).thenReturn(mockUser);
+        //act
+        Optional<Quiz> result = quizService.ValidateAccessAndGetQuiz(mockToken, mockId);
 
-    }
-
-    @Test
-    void testGetQuestionsOfQuiz() {
-
-    }
-
-    @Test
-    void testGetQuiz() {
-
-    }
-
-    @Test
-    void testValidateAccessAndGetQuiz() {
+        //assert
+        assertEquals(result.get().getId(), mockId);
+        assertEquals(result.get().getOwner(),mockUser);
 
     }
 }

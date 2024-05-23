@@ -29,6 +29,6 @@ public class ExceptionHandlerController
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<String> handleAccessDeniedException(Exception _exception)
     {
-        return new ResponseEntity<>(_exception.getMessage(), HttpStatus.LOCKED);
+        return new ResponseEntity<>(_exception.getMessage(), HttpStatus.FORBIDDEN);
     }
 }

@@ -40,7 +40,6 @@ public class UserGeneralResponse
                 .role(_user.getRole())
                 .createdAt(_user.getCreatedAt())
                 .firstName(_user.getFirstName())
-                .secondName(_user.getSecondName())
                 .lastName(_user.getLastName())
                 .birthDate(_user.getBirthDate())
                 .build();

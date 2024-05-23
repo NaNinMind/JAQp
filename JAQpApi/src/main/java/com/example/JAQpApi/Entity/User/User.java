@@ -4,6 +4,8 @@ package com.example.JAQpApi.Entity.User;
 import com.example.JAQpApi.Entity.Quiz.ImageMetadata;
 import com.example.JAQpApi.Entity.Quiz.Quiz;
 import com.example.JAQpApi.Entity.Token.Token;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,18 +34,18 @@ public class User implements UserDetails
     @Column(nullable = false, unique = true)
     private String username;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
-
-    // @OneToMany(mappedBy = "user")
-    // private List<Quiz> quizList;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @JsonIgnore
     @Column(nullable = false)
     private Timestamp createdAt;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
@@ -51,44 +53,48 @@ public class User implements UserDetails
     private String firstName;
 
     @Column
-    private String secondName;
-
-    @Column
     private String lastName;
 
     @Column
     private OffsetDateTime birthDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<ImageMetadata> imageMetadata;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "owner")
     private List<Quiz> quizzes;
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired()
     {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked()
     {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired()
     {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled()
     {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {

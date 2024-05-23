@@ -10,6 +10,9 @@ import com.example.JAQpApi.Exceptions.ImageException;
 import com.example.JAQpApi.Exceptions.NotFoundException;
 import com.example.JAQpApi.Repository.ImageMetadataRepo;
 import com.example.JAQpApi.Repository.QuizRepo;
+
+import lombok.NoArgsConstructor;
+
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ public class QuizService
     private final ImageService imageService;
     private final QuestionService questionService;
 
+    //no test
     private QuizResponse QuizResponseFactory(Quiz _quiz)
     {
         return QuizResponse.builder()
@@ -35,7 +39,7 @@ public class QuizService
                 .name(_quiz.getName())
                 .build();
     }
-
+    //no test
     public QuizService(QuizRepo quizRepo, ImageMetadataRepo imageMetadataRepo, AuthService authService, ImageService imageService, @Lazy QuestionService questionService)
     {
         this.quizRepo = quizRepo;
@@ -44,7 +48,7 @@ public class QuizService
         this.imageService = imageService;
         this.questionService = questionService;
     }
-
+    //TESTED
     public Optional<Quiz> ValidateAccessAndGetQuiz(String _token, Integer _id) throws AccessDeniedException, NotFoundException
     {
         Quiz result = quizRepo.findById(_id).orElseThrow(() -> new NotFoundException("Quiz", "id", _id.toString()));
@@ -54,25 +58,25 @@ public class QuizService
         }
         throw new AccessDeniedException("Access denied");
     }
-
+    //TESTED
     public QuizResponse CreateQuiz(String _token, QuizCreateRequest _request) throws NotFoundException, ImageException
     {
-        ImageMetadata thumnail = null;
+        ImageMetadata thumbnail = null;
         if (_request.getThumbnail() != null)
         {
-            thumnail = imageMetadataRepo.findById(imageService.UploadFile(_request.getThumbnail(), _token)).orElseThrow(() -> new ImageException("Unknown image error"));
+            thumbnail = imageMetadataRepo.findById(imageService.UploadFile(_request.getThumbnail(), _token)).orElseThrow(() -> new ImageException("Unknown image error"));
         }
         User owner = authService.GetUserByToken(_token);
         Quiz quiz = Quiz.builder()
                 .description(_request.getDescription())
                 .name(_request.getName())
-                .thumbnail(thumnail)
+                .thumbnail(thumbnail)
                 .owner(owner)
                 .build();
         quiz = quizRepo.save(quiz);
         return QuizResponseFactory(quiz);
     }
-
+    //NO LOGIC TO UNITTEST
     public OwnedQuizListResponse GetOwnedQuiz(String _token) throws NotFoundException
     {
         User owner = authService.GetUserByToken(_token);
@@ -86,40 +90,43 @@ public class QuizService
         }
         return new OwnedQuizListResponse(list);
     }
-
+    //NO LOGIC TO UNITTEST
     public QuestionsOfQuizResponse GetQuestionsOfQuiz(Integer _id) throws NotFoundException
     {
         return QuestionsOfQuizResponse.toDto(quizRepo.findById(_id).orElseThrow(() -> new NotFoundException("")).getQuestions());
     }
-
+    //NO LOGIC TO UNITTEST
     public QuizResponse GetQuiz(Integer _id) throws NotFoundException
     {
         Quiz quiz = quizRepo.findById(_id).orElseThrow(() -> new NotFoundException(""));
         return QuizResponseFactory(quiz);
     }
-
-
+    //NO LOGIC TO UNITTEST
     public void DeleteQuiz(String _token, Integer _id) throws AccessDeniedException, NotFoundException, ImageException
     {
         Quiz quiz = ValidateAccessAndGetQuiz(_token, _id).orElseThrow(() -> new NotFoundException("Quiz", "id", _id.toString()));
         List<Question> questions = quiz.getQuestions();
         ImageMetadata imageMetadata = quiz.getThumbnail();
-        for (Question question : questions)
-        {
-            questionService.DeleteQuestion(_token, question.getId());
+        if ( questions != null ){
+            for (Question question : questions)
+            {
+                questionService.DeleteQuestion(_token, question.getId());
+            }
         }
         quizRepo.delete(quiz);
-        imageService.DeleteImage(imageMetadata, _token);
+        if ( imageMetadata != null){
+            imageService.DeleteImage(imageMetadata, _token);
+        }
     }
-
-    private Quiz ChangeQuiz(String _token, Integer _id, String _name, String _description) throws AccessDeniedException, NotFoundException
+    //TOTEST
+    protected Quiz ChangeQuiz(String _token, Integer _id, String _name, String _description) throws AccessDeniedException, NotFoundException
     {
         Quiz quiz = ValidateAccessAndGetQuiz(_token, _id).orElseThrow(() -> new NotFoundException("Quiz", "id", _id.toString()));
         quiz.setDescription(_description);
         quiz.setName(_name);
         return quiz;
     }
-
+    //NO LOGIC TO UNITTEST
     public QuizResponse ChangeQuiz(String _token, QuizCreateRequest _request, Integer _id) throws AccessDeniedException, NotFoundException, ImageException
     {
         Quiz quiz = ChangeQuiz(_token, _id, _request.getName(), _request.getDescription());
@@ -131,7 +138,7 @@ public class QuizService
         quizRepo.save(quiz);
         return QuizResponseFactory(quiz);
     }
-
+    //NO LOGIC TO UNITTEST
     public QuizResponse ChangeQuiz(String _token, QuizChangeRequest _request, Integer _id) throws AccessDeniedException, NotFoundException
     {
         Quiz quiz = ChangeQuiz(_token, _id, _request.getName(), _request.getDescription());
