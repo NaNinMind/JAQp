@@ -43,11 +43,12 @@ public class SecurityConfig {
             .sessionManagement( (sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS) )
             .authorizeHttpRequests((authorizeHttpRequests) ->
                     authorizeHttpRequests
-                        .requestMatchers(WHITE_LIST_URL).permitAll()
-                        .requestMatchers("/api/users/**").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/demo-controller/**").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
+                        // .requestMatchers(WHITE_LIST_URL).permitAll()
+                        //.requestMatchers("/api/users/**").permitAll()
+                        //.requestMatchers("/api/auth/**").permitAll()
+                        //.requestMatchers("/api/demo-controller/**").permitAll()
+                        //.anyRequest().authenticated()
                         
             )
             .addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);

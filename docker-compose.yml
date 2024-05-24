@@ -12,7 +12,8 @@ services:
         reservations:
           memory: 256M
     depends_on:
-      - JAQpApi
+      JAQpApi:
+        condition: service_started
     ports:
       - 3000:3000  
    
@@ -26,13 +27,16 @@ services:
         reservations:
           memory: 256M
     depends_on:
-      - JAQp-db
-      - JAQp-minio
-      - JAQp-Garnet
-      - JAQp-elastic
+      JAQp-db:
+        condition: service_healthy
+      JAQp-minio:
+        condition: service_started
+      JAQp-Garnet:
+        condition: service_started
+      JAQp-elastic:
+        condition: service_healthy
     ports:
       - 8080:8080  
-   
  
   JAQp-db:
     image: 'postgres:latest'
@@ -46,10 +50,15 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=JAQp
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - pg-data:/var/lib/postgresql/data
 #     - ./schema:/docker-entrypoint-initdb.d   
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   JAQp-minio:
     image: minio/minio
     container_name: JAQp-minio
@@ -67,15 +76,13 @@ services:
       MINIO_ROOT_PASSWORD: miniominio 
     command: server --console-address ":9001" /data
   JAQp-Garnet:
-    image: 'ghcr.io/microsoft/garnet'
+    image: 'ghcr.io/microsoft/garnet:1.0.7'
     restart: always
     deploy:
       resources:
         reservations:
           memory: 256M
     container_name: JAQp-Garnet
-    ulimits:
-      memlock: -1
     ports:
       - "6379:6379"
     # To avoid docker NAT, consider `host` mode.
@@ -83,8 +90,7 @@ services:
     # network_mode: "host"
     volumes:
       - cache:/data
-
-
+         
   JAQp-elastic:
     image: elasticsearch:8.10.4
     container_name: JAQp-elastic
@@ -104,9 +110,18 @@ services:
     ports:
       - "9200:9200"
       - "9600:9600"
+    healthcheck:
+      test: "curl http://localhost:9200"
+      retries: 10
+      interval: 30s
+      timeout: 30s
+      
   JAQp-kibana:
     image: kibana:8.10.4
     container_name: JAQp-kibana
+    depends_on:
+      JAQp-elastic:
+        condition: service_healthy
     deploy:
       resources:
         reservations:
@@ -119,28 +134,30 @@ services:
       ELASTICSEARCH_URL: http://JAQp-elastic:9200
       ELASTICSEARCH_HOSTS: http://JAQp-elastic:9200
       
-  JAQp-logstash:
-    user: root
-    image: logstash:8.10.4
-    container_name: JAQp-logstash    
-    deploy:
-      resources:
-        reservations:
-          memory: 256M
-    ports:
-      - "5044:5044"
-    depends_on:
-      - JAQp-db
-      - JAQp-elastic
-    environment:
-      - PIPELINE_WORKERS=1
-      - PIPELINE_BATCH_SIZE=125
-      - PIPELINE_BATCH_DELAY=50
-      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
-    volumes:
-      - ./conf/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - logstash_data:/usr/share/logstash/data
-      - ./conf/postgresql-42.6.0.jar:/usr/share/logstash/postgresql-42.6.0.jar
+#  JAQp-logstash:
+#    user: root
+#    image: logstash:8.10.4
+#    container_name: JAQp-logstash    
+#    deploy:
+#      resources:
+#        reservations:
+#          memory: 256M
+#    ports:
+#      - "5044:5044"
+#    depends_on:
+#      JAQp-db:
+#        condition: service_healthy
+#      JAQp-elastic:
+#        condition: service_healthy
+#    environment:
+#      - PIPELINE_WORKERS=1
+#      - PIPELINE_BATCH_SIZE=125
+#      - PIPELINE_BATCH_DELAY=50
+#      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
+#    volumes:
+#      - ./conf/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+#      - logstash_data:/usr/share/logstash/data
+#      - ./conf/postgresql-42.6.0.jar:/usr/share/logstash/postgresql-42.6.0.jar
 volumes:
   cache:
   pg-data:

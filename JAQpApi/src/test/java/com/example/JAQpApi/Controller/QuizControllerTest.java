@@ -155,7 +155,7 @@ public class QuizControllerTest {
       .extract()
         .path("id");
 
-      QuizChangeRequest quizChangeRequest = new QuizChangeRequest("qNew", "descrNew");
+      QuizChangeRequest quizChangeRequest = new QuizChangeRequest("qNew", "descrNew", List.of("tag1"));
       given()
         .accept("application/json")
         .contentType("application/json")
@@ -182,10 +182,12 @@ public class QuizControllerTest {
       User owner = userRepo.findByUsername("username1").get();
       Quiz quiz1 = Quiz.builder()
                         .name("q1")
+                        .isPublic(true)
                         .owner(owner)
                         .build();
       Quiz quiz2 = Quiz.builder()
                         .name("q2")
+                        .isPublic(true)
                         .owner(owner)
                         .build();
                         
@@ -213,10 +215,12 @@ public class QuizControllerTest {
       Quiz quiz1 = Quiz.builder()
                         .name("q1")
                         .owner(owner)
+                        .isPublic(true)
                         .build();
       Quiz quiz2 = Quiz.builder()
                         .name("q2")
                         .owner(owner)
+                        .isPublic(true)
                         .build();
                         
       quizRepo.save(quiz1);
@@ -238,6 +242,7 @@ public class QuizControllerTest {
       Quiz quiz1 = Quiz.builder()
                         .name("testGet")
                         .id(1)
+                        .isPublic(true)
                         .owner(owner)
                         .build();
 
@@ -280,6 +285,7 @@ public class QuizControllerTest {
       Quiz quiz1 = Quiz.builder()
                         .name("testDel")
                         .owner(owner)
+                        .isPublic(true)
                         .build();
       quizRepo.save(quiz1);
       int id = quizRepo.findByName("testDel").get().getId();

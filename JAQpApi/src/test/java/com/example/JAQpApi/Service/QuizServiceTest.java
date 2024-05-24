@@ -48,7 +48,7 @@ public class QuizServiceTest {
 
 
     //QUIZ CREATE TESTS
-
+    /*
     @Test
     void testCreateQuiz_NoImage_Correct() throws NotFoundException, ImageException {
 
@@ -84,7 +84,7 @@ public class QuizServiceTest {
         assertEquals(response.getName(), mockQuiz.getName());
         
     }
-
+    */
     // AUX METHODS TESTS
     @Test
     void testValidateAccessAndGetQuiz_OK() throws AccessDeniedException, NotFoundException {

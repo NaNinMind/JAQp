@@ -10,5 +10,5 @@ import com.example.JAQpApi.Entity.Quiz.Question;
 @Hidden
 public interface QuestionRepo extends JpaRepository<Question, Integer>
 {
-
+    // Optional<Question> findBy
 }

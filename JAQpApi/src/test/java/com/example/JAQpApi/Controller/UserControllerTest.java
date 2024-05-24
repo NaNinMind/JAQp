@@ -30,6 +30,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
+import org.testcontainers.elasticsearch.ElasticsearchContainer;
+
+import com.redis.testcontainers.RedisContainer;
+import org.testcontainers.utility.DockerImageName;
+
 
 import com.example.JAQpApi.Entity.User.User;
 import com.example.JAQpApi.Repository.TokenRepo;
@@ -46,18 +52,24 @@ class UserControllerTest {
 
   public static Logger log = LoggerFactory.getLogger(UserControllerTest.class);
 
+  static RedisContainer REDIS_CONTAINER =  new RedisContainer(DockerImageName.parse("ghcr.io/microsoft/garnet:1.0.7"))
+                                                .withExposedPorts(6379);
   static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
     "postgres:15-alpine"
   );
 
+
   @BeforeAll
   static void beforeAll() {
     postgres.start();
+    REDIS_CONTAINER.start();
   }
 
   @AfterAll
   static void afterAll() {
     postgres.stop();
+    REDIS_CONTAINER.stop();
+
   }
 
   @DynamicPropertySource
@@ -65,9 +77,19 @@ class UserControllerTest {
     registry.add("spring.datasource.url", postgres::getJdbcUrl);
     registry.add("spring.datasource.username", postgres::getUsername);
     registry.add("spring.datasource.password", postgres::getPassword);
+
+    registry.add("spring.redis.host", REDIS_CONTAINER::getHost);
+    registry.add("spring.redis.port", () -> REDIS_CONTAINER.getMappedPort(6379).toString());
+    //registry.add("spring.cache.type", () -> "redis");
+    //registry.add("spring.cache.cache-names", () -> "redis-cache");
+    
     registry.add("minio.url", () -> "http://localhost:9000");
     registry.add("minio.accessKey", () -> "minio");
     registry.add("minio.secretKey", () -> "miniominio");
+
+    //registry.add("spring.autoconfigure.exclude", () -> "org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientAutoConfiguration");
+    //registry.add("hibernate.search.backend.protocol", () -> "http");
+    //registry.add("spring.jpa.properties.hibernate.search.backend.hosts", () -> "localhost:9200");
   }
 
   @Autowired

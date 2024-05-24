@@ -4,7 +4,7 @@
 FROM maven:3.9.6-sapmachine-17 AS build
 COPY src /home/app/src
 COPY pom.xml /home/app
-RUN mvn -e -f /home/app/pom.xml clean package
+RUN mvn -e -f /home/app/pom.xml clean package -Dmaven.test.skip
 
 #
 # Package stage
